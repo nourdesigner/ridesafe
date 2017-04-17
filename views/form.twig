@@ -1,0 +1,8 @@
+<form action="/addfavoris" method="post">
+    <input type="hidden" name="titre" value="{{ film.titre }}">
+    <input type="hidden" name="pays" value="{{ film.pays }}">
+    <input type="hidden" name="realisateur" value="{{ film.Realisateur }}">
+    <input type="hidden" name="sortie" value="{{ film.Sortie }}">
+    <input type="hidden" name="duree" value="{{ film.Duree }}">
+    <input type="submit" value="ajouter au favoris">
+</form>

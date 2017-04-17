@@ -1,0 +1,9 @@
+<h1>twig shop</h1>
+{% for s in shop %}
+    <fieldset style="width: 300px;">
+        <img src="/public/images/velo.jpg">
+        <legend>{{ s.productName }}</legend>
+        <p>    {{ s.price }}</p>
+        <p>    {{ s.category }}</p>
+    </fieldset>
+{% endfor %}

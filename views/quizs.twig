@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <style>
+        div#test {
+            border: #000 1px solid;
+            padding: 10px 40px 40px 40px;
+        }
+        #myProgress {
+            width: 100%;
+            height: 30px;
+            position: relative;
+            background-color: #ddd;
+        }
+
+        #myBar {
+            background-color: #4CAF50;
+            width: 10px;
+            height: 30px;
+            position: absolute;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-1.10.2.js"></script>
+
+    <script>
+        var pos = 0,
+            test, test_status, question, choice, choices, chA, chB, chC, correct = 0;
+        var voices = window.speechSynthesis.getVoices();
+
+
+
+        var questions = [
+            {% for q in quizs %}
+            ["{{ q.Question }}",
+                {% for i in 0..q.Reponses|length -1 %}"{{ q.Reponses[i] }}",{% endfor %}
+                "{{ q.Reponse }}"],
+
+            {% endfor %}
+        ];
+        var questionsQuiz = [
+            {% for q in quizs %}
+            ["{{ q.Question }}?",
+                {% for i in 0..q.Reponses|length -1 %}"{{ q.Reponses[i] }}",{% endfor %}
+                ],
+
+            {% endfor %}
+        ];
+
+        function ReadQuiz() {
+            var speechMessage = new SpeechSynthesisUtterance();
+            speechMessage.lang = 'fr-FR';
+            if(questionsQuiz[pos]!=undefined){
+                speechMessage.text  = questionsQuiz[pos];
+            }
+            if (pos >= questions.length){
+                speechMessage.text  = "Vouz avez " + correct + " sur " + questions.length + " questions correctes."+" Vouz avez terminer le quiz";
+            }
+            speechSynthesis.speak(speechMessage);
+
+
+        }
+
+        function _(x) {
+            return document.getElementById(x);
+        }
+
+        function renderQuestion() {
+            ReadQuiz();
+            test = _("test");
+            if (pos >= questions.length) {
+                test.innerHTML = "<h2>Vouz avez " + correct + " sur " + questions.length + " questions correctes</h2>";
+                _("test_status").innerHTML = "Test terminé";
+                pos = 0;
+                correct = 0;
+                return false;
+            }
+            _("test_status").innerHTML = "Question " + (pos + 1) + " sur " + questions.length;
+            question = questions[pos][0];
+            chA = questions[pos][1];
+            chB = questions[pos][2];
+            chC = questions[pos][3];
+            test.innerHTML = "<h3 id='ques'>" + question + "</h3>";
+
+            test.innerHTML += "<input type='radio' name='choices' value='A'> " + chA + "<br>";
+            test.innerHTML += "<input type='radio' name='choices' value='B'> " + chB + "<br>";
+            test.innerHTML += "<input type='radio' name='choices' value='C'> " + chC + "<br><br>";
+            test.innerHTML += "<button onclick='checkAnswer()' id='nextPage'>Submit Answer</button>";
+        }
+        choices = document.getElementsByName("choices");
+        function checkAnswer() {
+
+            for (var i = 0; i < choices.length; i++) {
+                if (choices[i].checked) {
+                    choice = choices[i].value;
+                }
+            }
+            if (choice == questions[pos][4]) {
+                correct++;
+            }
+            pos++;
+            renderQuestion();
+        }
+
+        window.addEventListener("load", renderQuestion, false);
+
+
+
+        function move() {
+            var elem = document.getElementById("myBar");
+            var width = 0;
+            var id = setInterval(frame, 150);
+            var elems = document.getElementById("nextPage");
+            function frame() {
+                if (width == 100) {
+                    clearInterval(id);
+                    pos =pos+questions.length-pos-1;
+                    elems.onclick.apply(elems);
+                } else {
+                    width++;
+                    elem.style.width = width + '%';
+                }
+            }
+        }
+
+
+    </script>
+</head>
+
+<body onload="move()">
+<h2 id="test_status"></h2>
+<div id="myProgress">
+    <div id="myBar"></div>
+</div>
+
+<div id="test"></div>
+
+</body>
+</html>

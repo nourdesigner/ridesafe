@@ -1,0 +1,13 @@
+{% for q in quizs %}
+    <fieldset>
+        <legend>{{ q.Question }}</legend>
+        <ul>
+            {% for i in 0..q.Reponses|length -1 %}
+                <li><input type="checkbox">{{ q.Reponses[i] }} </li>
+            {% endfor %}
+
+
+        </ul>
+
+    </fieldset>
+{% endfor %}
