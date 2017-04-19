@@ -13,6 +13,11 @@ var quizs = require('./api/apiQuizs');
 var produits = require('./api/apiProduit');
 var reporting = require('./api/apiReporting');
 var review = require('./api/apiReview');
+var server = require('./routes/server');
+var contact =require('./routes/contactold');
+var users = require('./api/userapi');
+var discussion = require('./api/apidisscussion');
+var mail = require('./api/apimail');
 
 var app = express();
 //mongoose.connect('mongodb://localhost:27017/mean')
@@ -34,6 +39,12 @@ app.use('/api/quiz', quizs);
 app.use('/api/produit', produits);
 app.use('/api/reporting', reporting);
 app.use('/api/review', review);
+app.use('/chat', server);
+app.use('/', index);
+app.use('/contact', contact);
+app.use('/user', users);
+app.use('/chat',discussion)
+app.use('/mail',mail)
 app.use('/', index);
 
 
