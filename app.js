@@ -15,8 +15,8 @@ var reporting = require('./api/apiReporting');
 var review = require('./api/apiReview');
 
 var app = express();
-mongoose.connect('mongodb://localhost:27017/mean')
-//mongoose.connect('mongodb://wemtek:wemtek2017@ds133670.mlab.com:33670/ridesafe')
+//mongoose.connect('mongodb://localhost:27017/mean')
+mongoose.connect('mongodb://wemtek:wemtek@ds133670.mlab.com:33670/ridesafe')
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
