@@ -1,0 +1,35 @@
+<article class="row">
+    <div class="col-md-3 col-sm-6 col-xs-12" ng-repeat="user in users"
+         style="cursor:hand" ng-click="selectuser(user,$index)">
+        <div class="panel panel-blue summary">
+            <h4>{{user.username}} {{user.firstname}}</h4>
+
+        </div>
+    </div>
+
+            <form method="POST" >
+                <table>
+                    <tr><td>ids </td>
+                        <td> <input type="text" ng-model="user._id"> </td>
+                    </tr>
+                    <tr><td>username </td>
+                        <td> <input type="text" ng-model="user.username"> </td>
+                    </tr>
+                    <tr><td>firstname </td>
+                        <td>  <input type="text" ng-model="user.firstname"> </td>
+                    </tr>
+                    <tr><td>lastname </td>
+                        <td> <input type="text" ng-model="user.lastname"></td>
+                    </tr>
+                    </tr>
+                    <tr><td> <input type="submit"  value="AddUser" ng-click="addUser()"> </td>
+                    </tr>
+                </table>
+
+                <button ng-click="editUser()">update</button>
+                <button ng-click="deleteUser()">delete</button>
+
+            </form>
+
+    <button ng-click="testNG()">TestNG</button>
+</article>
