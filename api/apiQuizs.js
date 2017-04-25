@@ -1,44 +1,52 @@
 var express = require('express');
 var router = express.Router();
-var User = require('../models/userSchema');
+var Quiz = require('../models/quiSchema');
+var mongoose = require('mongoose');
 
 
 
 router.get('/', function (req, res, next) {
-User.find(function(err, users){
+Quiz.find(function(err, Quizs){
     if(err)
         return res.json(err);
-    res.json(users);
+    res.json(Quizs);
 });
 });
 
-router.get('/:id', function (req, res, next) {
-    User.findById(req.params.id,function (err,users) {
-        if(!users)
-            return res.status(404).send();
+router.get('/:id', function (req, res) {
 
-        res.status(200).send(users);
+    Quiz.find({_id:req.params.id},function (err,Quizs) {
+        if(err)
+            return res.json(err);
+        res.json(Quizs);
+    })
+});
+
+router.get('/tags/:tags', function (req, res, next) {
+    Quiz.find({tags:req.params.tags}).limit(1).exec(function (err,Quizs) {
+        if(err)
+            return res.json(err);
+        res.json(Quizs);
     })
 });
 
 router.post('/', function (req, res) {
-    User= new User(req.body);
-    User.save(function (err) {
+    Quiz._id="9";
+    Quiz= new Quiz(req.body);
+    Quiz.save(function (err) {
         if(err)
             return res.json(err);
-        res.json(User);
+        res.json(Quiz);
     })
 });
 
-
-router.delete('/:id', function (req, res, next) {
- User.findByIdAndRemove(req.params.id,function () {
-     res.json({"success" : true});
- })
-
+router.delete('/:id', function(req, res) {
+    Quiz.findByIdAndRemove(req.params.id,function () {
+        res.json({"success":true});
+    })
 });
 /*router.deleteAll('/',function (req,res) {
-    User.remove(function () {
+    Quiz.remove(function () {
         res.json({"success" : true});
 
 
@@ -47,7 +55,7 @@ router.delete('/:id', function (req, res, next) {
 })*/
 router.put('/:id', function (req, res, next) {
 
-    User.findByIdAndUpdate(req.params.id,req.body,function (err) {
+    Quiz.findByIdAndUpdate(req.params.id,req.body,function (err) {
         if(err)
            return res.json(err)
         res.json({"success" : true});

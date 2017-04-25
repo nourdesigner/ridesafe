@@ -7,4 +7,4 @@ var userSchema = new Schema ({
     _id : Number,
     } , {collection : "quiz"} );
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('User',  userSchema);

@@ -18,6 +18,7 @@ var contact =require('./routes/contactold');
 var users = require('./api/userapi');
 var discussion = require('./api/apidisscussion');
 var mail = require('./api/apimail');
+var historique = require('./api/apiHistorique');
 
 var app = express();
 //mongoose.connect('mongodb://localhost:27017/mean')
@@ -39,12 +40,15 @@ app.use('/api/quiz', quizs);
 app.use('/api/produit', produits);
 app.use('/api/reporting', reporting);
 app.use('/api/review', review);
+app.use('/api/historique',historique);
+
 app.use('/chat', server);
 app.use('/', index);
 app.use('/contact', contact);
 app.use('/user', users);
-app.use('/chat',discussion)
-app.use('/mail',mail)
+app.use('/chat',discussion);
+app.use('/mail',mail);
+
 app.use('/', index);
 
 
@@ -73,7 +77,4 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-
-
 module.exports = app;

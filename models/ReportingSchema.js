@@ -5,7 +5,6 @@ var Schema = mongoose.Schema;
 
 var ReportingSchema = new Schema ({
 
-    _id : Number,
     subjectReporting: {type:String,default:false},
     description : {type:String,required:true, minlength:1,trim:true},
 
