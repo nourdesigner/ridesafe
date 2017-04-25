@@ -21,31 +21,30 @@ router.get('/:id', function (req, res) {
         res.json(users);
     })
 });
-
+router.get('/name/:id', function (req, res) {
+    users.find({username:req.params.id},function (err,users) {
+        if(err)
+            return res.json(err);
+        res.json(users);
+    })
+});
 router.get('/:username/:password', function(req, res) {
 
-    users.findOne({username:req.params.username,password:req.params.password},function (err, users) {
+    users.find({username:req.params.username,password:req.params.password},function (err, users) {
         if (err)
             res.json(err);
         res.status(200).send(users);
     });
 });
-
-
-
-router.post('/', function(req, res) {
-
-
-    var user  = new users(req.body);
-    user.save(function (err,user) {
-
+router.post('/', function (req, res) {
+    users= new users(req.body);
+    users.save(function (err) {
         if(err)
-            return res.json(err)
-      return  res.status(201).send(user);
-
-
-    });
+            return res.json(err);
+        res.json(users);
+    })
 });
+
 
 router.delete('/:id', function (req, res, next) {
     users.findByIdAndRemove({_id:req.params.id}, req.body, function (err, user) {

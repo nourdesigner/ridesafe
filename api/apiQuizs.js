@@ -31,7 +31,6 @@ router.get('/tags/:tags', function (req, res, next) {
 });
 
 router.post('/', function (req, res) {
-    Quiz._id="9";
     Quiz= new Quiz(req.body);
     Quiz.save(function (err) {
         if(err)
