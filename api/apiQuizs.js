@@ -29,7 +29,13 @@ router.get('/tags/:tags', function (req, res, next) {
         res.json(Quizs);
     })
 });
-
+router.get('/niveau/:niveau', function (req, res, next) {
+    Quiz.find({niveau:req.params.niveau}).exec(function (err,Quizs) {
+        if(err)
+            return res.json(err);
+        res.json(Quizs);
+    })
+});
 router.post('/', function (req, res) {
     Quiz= new Quiz(req.body);
     Quiz.save(function (err) {

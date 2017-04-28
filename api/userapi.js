@@ -22,7 +22,7 @@ router.get('/:id', function (req, res) {
     })
 });
 router.get('/name/:id', function (req, res) {
-    users.find({username:req.params.id},function (err,users) {
+    users.findOne({username:req.params.id},function (err,users) {
         if(err)
             return res.json(err);
         res.json(users);
@@ -30,7 +30,7 @@ router.get('/name/:id', function (req, res) {
 });
 router.get('/:username/:password', function(req, res) {
 
-    users.find({username:req.params.username,password:req.params.password},function (err, users) {
+    users.findOne({username:req.params.username,password:req.params.password},function (err, users) {
         if (err)
             res.json(err);
         res.status(200).send(users);
