@@ -1,6 +1,6 @@
 var express = require('express');
 var router = express.Router();
-var Reporting = require('../models/ReportingSchema');
+var Reporting = require('../models/likereportingSchema');
 
 
 
@@ -14,28 +14,13 @@ router.get('/', function (req, res, next) {
 
 router.post('/', function (req,res) {
     Report= new Reporting(req.body);
-    var today = new Date();
-
-    var dd = today.getDate();
-    var mm = today.getMonth()+1; //January is 0!
-    var yyyy=today.getFullYear();
-    if(dd<10){
-        dd='0'+dd;
-        res.json(reporting);
-    }
-    if(mm<10){
-        mm='0'+mm;
-    }
-
-    var today =dd+'/'+mm+'/'+yyyy;
-    Report.date=today;
-    Report.save(function (err,reporting) {
+       Report.save(function (err,reporting) {
         if(err)
             return res.json(err);
     })
 });
-router.get('/:id', function (req, res, next) {
-    Reporting.findOne({_id:req.params.id },function (err, Reporting){
+router.get('/:idr/:idu', function (req, res, next) {
+    Reporting.findOne({'idReporting':req.params.idr,'idUser':req.params.idu},function (err, Reporting){
         if(err)
             return res.json(err);
         res.json(Reporting);

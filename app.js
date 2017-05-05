@@ -19,6 +19,7 @@ var users = require('./api/userapi');
 var discussion = require('./api/apidisscussion');
 var mail = require('./api/apimail');
 var historique = require('./api/apiHistorique');
+var likereporting = require('./api/apiLikeReporting');
 
 var app = express();
 //mongoose.connect('mongodb://localhost:27017/mean')
@@ -41,6 +42,7 @@ app.use('/api/produit', produits);
 app.use('/api/reporting', reporting);
 app.use('/api/review', review);
 app.use('/api/historique',historique);
+app.use('/api/likereporting',likereporting);
 
 app.use('/chat', server);
 app.use('/', index);
